@@ -281,14 +281,26 @@ function showToast(message, type="") {
 
 // ===== 採点 =====
 function checkAnswer() {
+  const c = correctAnswer;
+
+  // 分母1なのに入力したら不正解
+  if (c.den === 1 && denominatorInput.trim() !== "") {
+    showToast("分母1は書かないよ！", "error");
+    return;
+  }
+
+  // 分母が必要なのに空欄
+  if (c.den !== 1 && denominatorInput.trim() === "") {
+    showToast("分母を入力しよう！", "error");
+    return;
+  }
+
   const user = parseMonomial(numeratorInput, denominatorInput);
 
   if (!user) {
     showToast("入力してください", "error");
     return;
   }
-
-  const c = correctAnswer;
 
   const ok =
     user.coef === c.coef &&
