@@ -9,15 +9,13 @@ let inputMode = "denominator";
 let numeratorInput = "";
 let denominatorInput = "";
 let correctAnswer = null;
-numeratorEl.classList.toggle("active", inputMode === "numerator");
-denominatorEl.classList.toggle("active", inputMode === "denominator");
 
 // ===== ボタン定義 =====
 const buttons = [
   "1","2","3","x","y","消",
-  "4","5","6","²","³","⁴",
-  "7","8","9","⁵","⁶",
-  "0","MODE","OK"
+  "4","5","6","○²","○³","○⁴",
+  "7","8","9","○⁵","○⁶","OK",
+  "0","MODE"
 ];
 
 // ===== ボタン生成 =====
@@ -26,7 +24,7 @@ buttons.forEach(b => {
 
   if (b === "MODE") {
     btn.id = "modeButton";
-    btn.textContent = "分子へ";
+    btn.textContent = "分子入力へ";
   } else {
     btn.textContent = b;
   }
@@ -125,8 +123,11 @@ function formatMonomial(num, den, x, y) {
 
 // ===== 表示更新 =====
 function updateDisplay() {
-numeratorEl.innerHTML = formatInput(numeratorInput);
-denominatorEl.innerHTML = denominatorInput;
+  numeratorEl.innerHTML = formatInput(numeratorInput);
+  denominatorEl.innerHTML = denominatorInput;
+
+  numeratorEl.classList.toggle("active", inputMode === "numerator");
+  denominatorEl.classList.toggle("active", inputMode === "denominator");
 
   document.getElementById("modeButton").textContent =
     inputMode === "denominator"
@@ -164,8 +165,9 @@ function handleInput(val) {
   if (val === "消") {
     current = current.slice(0, -1);
 
-  } else if ("²³⁴⁵⁶".includes(val)) {
-    if (/[xy]$/.test(current)) current += val;
+} else if (val.startsWith("○")) {
+  const power = val.slice(1);
+  if (/[xy]$/.test(current)) current += power;
 
   } else {
     current += val;
