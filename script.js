@@ -215,25 +215,28 @@ let b = leftFrac.den;
 let c = rightFrac.num;
 let d = rightFrac.den;
 
-  let [x1, y1] = randomExponentSum();
-  let [x2, y2] = randomExponentSum();
+let [x1, y1] = randomExponentSum(6);
+let [x2, y2] = randomExponentSum(6);
 
   let num, den, rx, ry;
 
-  if (op === "×") {
-    num = a * c;
-    den = b * d;
-    rx = x1 + x2;
-    ry = y1 + y2;
-  } else {
-    num = a * d;
-    den = b * c;
+if (op === "×") {
+  num = a * c;
+  den = b * d;
+  rx = x1 + x2;
+  ry = y1 + y2;
 
-    if (x1 < x2 || y1 < y2) return newQuestion();
+} else {
+  num = a * d;
+  den = b * c;
 
-    rx = x1 - x2;
-    ry = y1 - y2;
-  }
+  if (x1 < x2 || y1 < y2) return newQuestion();
+
+  rx = x1 - x2;
+  ry = y1 - y2;
+}
+
+if (rx > 6 || ry > 6) return newQuestion();
 
   const simp = simplify(num, den);
 
