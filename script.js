@@ -9,6 +9,8 @@ let inputMode = "denominator";
 let numeratorInput = "";
 let denominatorInput = "";
 let correctAnswer = null;
+numeratorEl.classList.toggle("active", inputMode === "numerator");
+denominatorEl.classList.toggle("active", inputMode === "denominator");
 
 // ===== ボタン定義 =====
 const buttons = [
