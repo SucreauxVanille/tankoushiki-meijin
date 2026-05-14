@@ -241,12 +241,10 @@ function renderFraction(m) {
   if (typeof m === "string") return m;
 
   return `
-    <span class="mono">
-      <span class="frac">
-        <span>${m.num}</span>
-        <span class="line"></span>
-        <span>${m.den}</span>
-      </span>
+    <span class="qFrac">
+      <span class="qNum">${m.num}</span>
+      <span class="qLine"></span>
+      <span class="qDen">${m.den}</span>
     </span>
   `;
 }
