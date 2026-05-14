@@ -97,8 +97,15 @@ function superscript(n) {
 // ===== 単項式表示 =====
 function formatVars(x, y) {
   let s = "";
-  if (x > 0) s += "x" + (x > 1 ? superscript(x) : "");
-  if (y > 0) s += "y" + (y > 1 ? superscript(y) : "");
+
+  if (x > 0) {
+    s += `<span class="var">x</span>${x > 1 ? superscript(x) : ""}`;
+  }
+
+  if (y > 0) {
+    s += `<span class="var">y</span>${y > 1 ? superscript(y) : ""}`;
+  }
+
   return s;
 }
 
@@ -118,8 +125,8 @@ function formatMonomial(num, den, x, y) {
 
 // ===== 表示更新 =====
 function updateDisplay() {
-  numeratorEl.textContent = numeratorInput;
-  denominatorEl.textContent = denominatorInput;
+numeratorEl.innerHTML = formatInput(numeratorInput);
+denominatorEl.innerHTML = denominatorInput;
 
   document.getElementById("modeButton").textContent =
     inputMode === "denominator"
@@ -167,7 +174,11 @@ function handleInput(val) {
   setCurrentInput(current);
   updateDisplay();
 }
-
+function formatInput(str) {
+  return str
+    .replace(/x/g, '<span class="var">x</span>')
+    .replace(/y/g, '<span class="var">y</span>');
+}
 // ===== パース =====
 function parseMonomial(str, denStr) {
   if (!str) return null;
@@ -194,8 +205,13 @@ function parseMonomial(str, denStr) {
 function newQuestion() {
   let op = Math.random() < 0.5 ? "×" : "÷";
 
-  let a = rand(1, 9), b = rand(2, 12);
-  let c = rand(1, 9), d = rand(2, 12);
+let leftFrac = simplify(rand(1, 9), rand(2, 12));
+let rightFrac = simplify(rand(1, 9), rand(2, 12));
+
+let a = leftFrac.num;
+let b = leftFrac.den;
+let c = rightFrac.num;
+let d = rightFrac.den;
 
   let [x1, y1] = randomExponentSum();
   let [x2, y2] = randomExponentSum();
