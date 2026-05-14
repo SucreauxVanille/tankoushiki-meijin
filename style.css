@@ -171,11 +171,11 @@ button[data-key="y"] {
 }
 
 /* 指数 */
-button[data-key="²"],
-button[data-key="³"],
-button[data-key="⁴"],
-button[data-key="⁵"],
-button[data-key="⁶"] {
+button[data-key="○²"],
+button[data-key="○³"],
+button[data-key="○⁴"],
+button[data-key="○⁵"],
+button[data-key="○⁶"] {
   background: #fff3e0;
 }
 
